@@ -1,0 +1,19 @@
+flowchart TD
+    A([Start: target folder]) --> B{Folder exists<br/>and readable?}
+    B -- No --> E1[Log error and exit]
+    B -- Yes --> C{Any files?}
+    C -- No --> E2[Log: nothing to organize]
+    C -- Yes --> D[For each file:<br/>read extension]
+    D --> F[Pick subfolder<br/>e.g. txt, jpg, no_extension]
+    F --> G{Name already<br/>exists there?}
+    G -- Yes --> H[Rename: file_1.ext, file_2.ext...]
+    G -- No --> I[Keep name]
+    H --> J{Dry run?}
+    I --> J
+    J -- Yes --> K[Log preview only]
+    J -- No --> L[Move file safely]
+    L --> M[Log filename, source, destination]
+    K --> N
+    M --> N{More files?}
+    N -- Yes --> D
+    N -- No --> O([Print summary:<br/>moved, skipped, errors])

@@ -1,0 +1,31 @@
+classDiagram
+    class Product {
+        +str sku
+        +str name
+        +float price
+        +int quantity
+        +int low_stock_threshold
+        +add_stock(amount)
+        +remove_stock(amount)
+        +is_low_stock() bool
+        +total_value() float
+        +#95;#95;str#95;#95;() str
+    }
+    class PerishableProduct {
+        +date expiry_date
+        +int warn_days
+        +is_expired() bool
+        +expires_soon() bool
+        +write_off_expired() int
+        +remove_stock(amount)
+    }
+    class Inventory {
+        -dict products
+        +add_product(product)
+        +add_stock(sku, amount)
+        +remove_stock(sku, amount)
+        +low_stock_alerts() list
+        +generate_report() str
+    }
+    Product <|-- PerishableProduct : inherits
+    Inventory "1" o-- "many" Product : manages
